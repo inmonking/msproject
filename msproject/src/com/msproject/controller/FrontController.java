@@ -1,0 +1,119 @@
+package com.msproject.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.msproject.action.Action;
+import com.msproject.action.ActionForward;
+import com.msproject.action.BoardInsertAction;
+import com.msproject.action.BoardListAction;
+import com.msproject.action.ConstractAction;
+import com.msproject.action.DropMemberAction;
+import com.msproject.action.DropMemberPlayAction;
+import com.msproject.action.IdCheckAction;
+import com.msproject.action.IndexAction;
+import com.msproject.action.InfoUpdateAction;
+import com.msproject.action.InfoUpdatePlayAction;
+import com.msproject.action.JoinAction;
+import com.msproject.action.JoinPlayAction;
+import com.msproject.action.LoginAjaxAction;
+import com.msproject.action.LogoutAction;
+import com.msproject.action.LogoutAjaxAction;
+import com.msproject.action.PwCheckAjaxAction;
+import com.msproject.action.PwUpdatePlayAction;
+
+/**
+ * Servlet implementation class FrontController
+ */
+@WebServlet("/FrontController")
+public class FrontController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public FrontController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		Action action = null;
+		ActionForward forward = null;
+		
+		String uri = request.getRequestURI();
+		String ctx = request.getContextPath();
+		String command = uri.substring(ctx.length());
+		System.out.println("페이지 이동 ===>"+ command);
+		
+		if(command.equals("/index.ms")) {
+			action = new IndexAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/constract.ms")) {
+			action = new ConstractAction();
+			forward = action.execute(request, response);			
+		}else if(command.equals("/join.ms")) {
+			action = new JoinAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/idCheck.html")) {
+			action = new IdCheckAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/joinPlay.ms")) {
+			action = new JoinPlayAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/login.ms")) {
+			action = new LoginAjaxAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/logOut.ms")) {
+			action = new LogoutAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/logoutAjax.ms")){
+			action = new LogoutAjaxAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/infoUpdate.ms")){
+			action = new InfoUpdateAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/infoUpdatePlay.ms")){
+			action = new InfoUpdatePlayAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/pwUpdatePlay.ms")) {
+			action = new PwUpdatePlayAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/dropMember.ms")) {
+			action = new DropMemberAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/pwCheckAjax.ms")) {
+			action = new PwCheckAjaxAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/dropMemberPlay.ms")) {
+			action = new DropMemberPlayAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/boardInsert.ms")) {
+			action = new BoardInsertAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/boardList.ms")) {
+			action = new BoardListAction();
+			forward = action.execute(request, response);
+		}
+		
+		if(forward != null) {
+			if(forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher(forward.getPath());
+				rd.forward(request, response);
+			}
+		}
+	}
+
+}

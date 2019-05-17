@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msproject.mybatis.msMapper">
+	<select id="bestList" resultType="com.msproject.dto.ProductDTO">
+		<![CDATA[
+		select * from (select * from tbl_product order by p_good desc)
+		where rownum <= 8
+		]]>
+	</select>
+	<select id="newList" resultType="com.msproject.dto.ProductDTO">
+		<![CDATA[
+		select * from (select * from tbl_product order by p_indate desc)
+		where rownum <= 8
+		]]>
+	</select>
+	<select id="idCheck" parameterType="String" resultType="String">
+		select id from tbl_member where id = #{id}
+	</select>
+	<insert id="memInsert" parameterType="com.msproject.dto.MemberDTO">
+		insert into tbl_member(idnum, id, pw, name, phone, zipcode, addr1, addr2, birth_year, birth_month, birth_day)
+		values(seq_member.nextval, #{id}, #{pw},#{name}, #{phone}, #{zipcode}, #{addr1}, #{addr2}, #{birth_year}, #{bitrh_month}, #{birth_day})
+	</insert>
+	<select id="loginCheck" parameterType="com.msproject.dto.MemberDTO" resultType="com.msproject.dto.MemberDTO">
+		select * from tbl_member where id = #{id} and pw = #{pw}
+	</select>
+	<update id="memUpdate" parameterType="com.msproject.dto.MemberDTO">
+		update tbl_member
+		set name = #{name},
+			birth_year = #{birth_year},
+			birth_month = #{birth_month},
+			birth_day = #{birth_day},
+			phone = #{phone}
+		where id = #{id}
+	</update>
+	<update id="pwUpdate" parameterType="hashmap">
+		update tbl_member set
+		pw = #{pw}
+		where id = #{id}
+	</update>
+	
+	<delete id="memDelete" parameterType="String">
+		delete from tbl_member
+		where id = #{id}
+	</delete>
+</mapper>

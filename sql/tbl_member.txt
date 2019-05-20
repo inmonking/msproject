@@ -32,3 +32,47 @@ select id from tbl_member
 where id = 'user1';
         
 commit;
+-- 게시판 테이블 -- 
+drop table tbl_board;
+create table tbl_board(
+    bno NUMBER PRIMARY key,
+    title VARCHAR2(200)  not null,
+    content VARCHAR2(4000) not null,
+    writer varchar2(30) not null,
+    viewcnt number default 0,
+    replycnt number DEFAULT 0,
+    goodcnt NUMBER default 0,
+    regdate date DEFAULT sysdate,
+    filename varchar2(100),
+    filesize number
+);
+DROP SEQUENCE seq_board;
+CREATE SEQUENCE seq_board
+start with 1
+INCREMENT by 1;
+
+-- 게시판 더미데이터 --
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다1', '테스트에요1', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다2', '테스트에요2', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다3', '테스트에요3', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다4', '테스트에요4', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다5', '테스트에요5', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다6', '테스트에요6', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다7', '테스트에요7', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다8', '테스트에요8', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다9', '테스트에요9', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다10', '테스트에요10', 'user1');
+
+commit;
+select * from tbl_board
+order by bno desc;

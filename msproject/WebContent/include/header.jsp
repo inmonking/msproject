@@ -13,13 +13,13 @@ pageEncoding="UTF-8"%>
 	<div id="modal_login" style="width: 100%; height: 100%; position: fixed; background-color: rgba(50,50,50,0.8); z-index: 1000; display: none; justify-content: center; align-items: center;">
 		<div style="width: 400px; height: 400px; background-color: white; border-radius: 10px; overflow: hidden; border: none;">
 			<div style="text-align: right;width: 385px"><span id="close" style="position: absolute; border-radius: 100px; width: 15px; text-align: center;font-weight: bold;font-size: 10px; color:white; cursor: pointer">X</span></div>
-			<div style="height: 100px; font-size: 3em; display: flex; justify-content: center; align-items: center;background-color:rgb(50,50,50); color: white; user-select: none;">MECAISLAND</div>
+			<a href="${path }/index.ms"><div style="height: 100px; font-size: 3em; display: flex; justify-content: center; align-items: center;background-color:rgb(50,50,50); color: white; user-select: none;">MECAISLAND</div></a>
 			<div style="height: 220px">
 				<div style="position: relative;padding: 10px">
 					<div style="margin: 20px; border: 1px solid darkgray; padding: 5px; text-align: center"><span><input type="text" name="id" id="id" style="width: 100%;height: 34px; border:none" placeholder="아이디"></span></div>
 					<div style="margin: 20px; margin-bottom:10px; border: 1px solid darkgray; padding: 5px; text-align: center"><span><input type="password" name="pass" id="pass" style="width: 100%;height: 34px; border:none" placeholder="비밀번호"></span></div>
 					<div id="err_check_msg" style="color: tomato; font-size: 12px; margin-left: 20px;opacity: 0; transition: 0.2s">경고 메시지 칸</div>
-					<div style="margin: 20px; margin-top:10px;background-color: rgba(100,100,100);"><div id="login_btn" style="height: 44px; text-align: center; color: white;  padding: 10px; cursor: pointer;user-select: none;">로그인</div></div>
+					<div style="margin: 20px; margin-top:10px;background-color: rgba(100,100,100);"><div id="login_btn" style="text-align: center; color: white;  padding: 10px; cursor: pointer;user-select: none;">로그인</div></div>
 				</div>
 			</div>
 			<hr style="margin:0 auto; width: 90%;">
@@ -66,12 +66,12 @@ pageEncoding="UTF-8"%>
 		</div>
 		<div style="position: relative;  width: 100%; height: 100px; background-color:rgb(50,50,50);">
 			<div style="position:relative; width: 1500px; height: inherit; margin: 0 auto;background-color:rgb(50,50,50);">
-				<span style="color: white; font-size: 3em; line-height: 90px; user-select: none;">MECAISLAND</span>
+				<a href="${path }/index.ms"><span style="color: white; font-size: 3em; line-height: 90px; user-select: none;">MECAISLAND</span></a>
 				<div style="position:absolute; width: 30%;height: 40px; left: 35%;top: 30px;background-color: white;">
 					<input type="text" style="width: 85%;margin-left: 2%; margin-top: 8px; border: none">
 					<a href="" style="position:absolute; right: 15px;font-size: 1.5em;line-height: 40px; color: black"><i class="fas fa-search"></i></a>
 				</div>
-				<div style="position: absolute; width: 20%; height: inherit; right: 0px; top:0px; display: flex;">
+				<div style="position: absolute; width: 20%; height: inherit; right: 0px; top:10px; display: flex;">
 
 					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="infoUpdate.ms" style="text-align: center;"><i class="fas fa-user"></i><p style="font-size: 12px">마이페이지</p></a></div>
 

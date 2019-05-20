@@ -60,7 +60,7 @@
 	.board_content td:nth-child(2){
 		text-align: left;
 	}
-	.page_num > span{
+	.page_detail{
 		font-family: 'Sunflower', sans-serif;
 		display: inline-block;
 		width: 30px;
@@ -69,6 +69,11 @@
 		cursor: pointer;
 		user-select: none;
 		font-weight: bold;
+		color: black;!important;
+	}
+	.active{
+		background-color: black;
+		color: white;!important;
 	}
 	.fa-heart{
 		font-size: 10px;
@@ -98,6 +103,14 @@
 		height: 16px;
 		line-height: 16px;
 		font-size: 0.8em;
+		animation-name: twinkle;
+		animation-duration: 2s;
+		animation-iteration-count: infinite;
+	}
+	@keyframes twinkle{
+		0% {opacity:0;}
+		50% {opacity:1;}
+		100% {opacity:0;}
 	}
 </style>
 <body>
@@ -126,96 +139,35 @@
 					<th style="width: 60px">조회수</th>
 					<th style="width: 60px">첨부</th>
 				</tr>
-				<tr>
-					<td>10</td>
-					<td><span>더미데이터</span><span class="board_reply_cnt">2</span><span class="board_ico_new">New</span></td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td><i class="far fa-save"></i></td>
-				</tr>
-				<tr>
-					<td>9</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>8</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td><i class="far fa-save"></i></td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>더미데이터</td>
-					<td>user1</td>
-					<td>2019.05.16</td>
-					<td><i class="fas fa-heart"></i><span>1<span></td>
-					<td>1</td>
-					<td></td>
-				</tr>
+				<c:forEach items="${list}" var="bDto">
+					<!-- 현재시간 구하기 -->
+					<jsp:useBean id="now" class="java.util.Date"/>
+					<fmt:formatDate value="${now }" pattern="yyyy-MM-dd" var="today"/>
+					<fmt:formatDate value="${bDto.regdate }" pattern="yyyy-MM-dd" var="regdate"/>
+					<tr>
+						<td>${bDto.bno }</td>
+						<td><span>${bDto.title }</span>
+						<c:if test="${bDto.replycnt > 0 }">
+							<span class="board_reply_cnt">${bDto.replycnt }</span>
+						</c:if>
+						<c:if test="${today==regdate}">
+							<span class="board_ico_new">New</span>
+						</c:if>
+						</td>
+						<td>${bDto.writer }</td>
+						<c:choose>
+							<c:when test="${today==regdate }">
+								<td><fmt:formatDate pattern="hh:mm:ss" value="${bDto.regdate }"/></td>
+							</c:when>
+							<c:otherwise>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${bDto.regdate }"/></td>
+							</c:otherwise>
+						</c:choose>
+						<td><i class="fas fa-heart"></i><span>${bDto.goodcnt }<span></td>
+						<td>${bDto.viewcnt }</td>
+						<td><i class="far fa-save"></i></td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 		<div style="height: 29px;margin-top: 10px">
@@ -232,18 +184,29 @@
 			</div>
 		</div>
 		<div class="page_num" style="text-align: center; margin-top: 10px">
-			<span class="pre_page"><<</span>
-			<span class="page_detail">1</span>
-			<span class="page_detail">2</span>
-			<span class="page_detail">3</span>
-			<span class="page_detail">4</span>
-			<span class="page_detail">5</span>
-			<span class="page_detail">6</span>
-			<span class="page_detail">7</span>
-			<span class="page_detail">8</span>
-			<span class="page_detail">9</span>
-			<span class="page_detail">10</span>
-			<span class="post_page">>></span>
+			<c:if test="${pageMaker.prev }">
+				<a href="${path }/boardList.ms?page=${pageMaker.criDto.page-5}">
+					<span class="page_detail">&laquo;</span>
+				</a>
+				<a href="${path }/boardList.ms?page=1">
+					<span class="page_detail">1</span>
+				</a>
+				<a>
+					<span class="page_detail">...</span>
+				</a>
+			</c:if>
+			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+				<a class="" href="boardList.ms?page=${idx }&flag=${flag}&key=${code}"><span class="page_detail <c:out value="${pageMaker.criDto.page == idx ? 'active':'' }"/>">${idx}</span></a>
+			</c:forEach>
+			<c:if test="${pageMaker.next }">
+				<a><span class="page_detail">...</span></a>
+				<a href="${path }/boardList.ms?page=${pageMaker.finalPage}">
+					<span class="page_detail">${pageMaker.finalPage}</span>
+				</a>
+				<a href="${path }/boardList.ms?page=${pageMaker.criDto.page+5}">
+					<span class="page_detail">&raquo;</span>
+				</a>
+			</c:if>
 		</div>
 	</div>
 	<script type="text/javascript">

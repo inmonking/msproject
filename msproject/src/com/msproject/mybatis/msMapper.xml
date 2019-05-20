@@ -44,4 +44,21 @@
 		delete from tbl_member
 		where id = #{id}
 	</delete>
+	
+	<!-- 게시판 -->
+	<select id="totalCount" resultType="int">
+		select count(bno)
+		from tbl_board
+		where bno > 0
+	</select>
+	<select id="listAll" resultType="com.msproject.dto.BoardDTO">
+		select *
+		from (select rownum rnum, a.*
+		        from (select *
+		              from tbl_board
+		              where bno>0
+		              order by bno desc
+		              )a
+		        )where rnum between #{pageStart} and #{perPageNum}
+	</select>
 </mapper>

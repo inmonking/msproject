@@ -19,7 +19,7 @@ public class PageMakerDTO {
 	}
 	
 	private void calcData() {
-		/*
+		
 		endPage = (int)Math.ceil(criDto.getPage()/(double)displayPageNum)*displayPageNum;
 		startPage = (endPage - displayPageNum)+1;
 		int tempEndPage = (int)(Math.ceil(totalCount/(double)(criDto.getPerPageNum()/criDto.getPage())));
@@ -31,7 +31,8 @@ public class PageMakerDTO {
 		next = (endPage * (criDto.getPerPageNum()/criDto.getPage()))>=totalCount ? false:true;
 		
 		finalPage = (int)Math.ceil(totalCount/(double)(displayPageNum));
-		*/
+		
+		/*
 		finalPage = (int)Math.ceil(totalCount/(double)(displayPageNum));
 		if(criDto.getPage()-displayPagehalf<=0) {
 			startPage = criDto.getPage()-1;
@@ -53,6 +54,7 @@ public class PageMakerDTO {
 		}
 		prev = startPage==1?false:true;
 		next = endPage == finalPage? false:true;
+		*/
 	}
 	public int getStartPage() {
 		return startPage;

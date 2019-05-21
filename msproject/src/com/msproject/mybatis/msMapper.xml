@@ -50,14 +50,49 @@
 		select count(bno)
 		from tbl_board
 		where bno > 0
+		<if test="search_option == 1">
+       	and title like '%'||#{keyword}||'%'
+         </if>
+         <if test="search_option == 2">
+       	 and  content like '%'||#{keyword}||'%' 
+         </if>
+         <if test="search_option == 3">
+       	 and  title like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+         </if>
+         <if test="search_option == 4">
+       	 and  writer like '%'||#{keyword}||'%' 
+         </if>
 	</select>
-	<select id="listAll" resultType="com.msproject.dto.BoardDTO">
+	<select id="listAll" parameterType="com.msproject.dto.CriteriaDTO" resultType="com.msproject.dto.BoardDTO">
 		select *
 		from (select rownum rnum, a.*
 		        from (select *
 		              from tbl_board
-		              where bno>0
-		              order by bno desc
+		              where bno >0
+		              <if test="search_option == 1">
+		            	and title like '%'||#{keyword}||'%'
+		              </if>
+		              <if test="search_option == 2">
+		            	 and  content like '%'||#{keyword}||'%' 
+		              </if>
+		              <if test="search_option == 3">
+		            	 and  title like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+		              </if>
+		              <if test="search_option == 4">
+		            	 and  writer like '%'||#{keyword}||'%' 
+		              </if>
+		              <if test="sort_type == 'new'">
+		              	order by bno desc		              
+		              </if>
+		              <if test="sort_type == 'good'">
+		              	order by goodcnt desc, bno desc	              
+		              </if>
+		              <if test="sort_type == 'reply'">
+		              	order by replycnt desc, bno desc            
+		              </if>
+		              <if test="sort_type == 'view'">
+		              	order by viewcnt desc, bno desc           
+		              </if>
 		              )a
 		        )where rnum between #{pageStart} and #{perPageNum}
 	</select>

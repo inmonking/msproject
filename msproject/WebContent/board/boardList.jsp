@@ -16,17 +16,14 @@
 		font-family: 'Nanum Gothic Coding', monospace;
 		font-weight: bold;
 	}
-	#board_sort > span{
+	#board_sort > a{
 		padding: 5px;
 		border: 1px solid darkgray;
 		font-size: 0.8em;
 		border-radius: 5px;
 		cursor: pointer;
 		font-weight: bold;
-	}
-	#board_sort span:nth-child(1){
-		background-color: #5D5D5D;
-		color: white;
+		color: black;
 	}
 	.board_content{
 		margin: 0 auto;
@@ -119,10 +116,10 @@
 		<div><h3 style="font-size: 35px; margin: 10px 0px 20px; font-weight: bold">게시판</h3></div>
 		<div>
 			<span id="board_sort">
-				<span id="board_sort_new">최신순</span>
-				<span id="board_sort_good">추천순</span>
-				<span id="board_sort_reply">댓글순</span>
-				<span id="board_sort_cnt">조회순</span>
+				<a value="new" id="board_sort_new"><span>최신순</span></a>
+				<a value="good" id="board_sort_good"><span>추천순</span></a>
+				<a value="reply" id="board_sort_reply"><span>댓글순</span></a>
+				<a value="view" id="board_sort_cnt"><span>조회순</span></a>
 			</span>
 			<span style="float: right;">
 				<span id="board_insert" style="width: 200px; background-color: orange; border-radius: 25px; padding: 8px; color: white; font-weight: bold; font-size: 0.8em; cursor: pointer; user-select: none">게시글 등록</span>
@@ -172,23 +169,22 @@
 		</div>
 		<div style="height: 29px;margin-top: 10px">
 			<div style="display: flex; float: right;">
-				<select style="height: 29px; width: 100px; border-radius: 20px;border: 1px solid lightgray; outline:none; box-sizing: border-box; font-weight: bold; user-select: none;">
-					<option>-조건 선택-</option>
-					<option>제목</option>
-					<option>내용</option>
-					<option>제목+내용</option>
-					<option>작성자</option>
+				<select id="selsearch" style="height: 29px; width: 100px; border-radius: 20px;border: 1px solid lightgray; outline:none; box-sizing: border-box; font-weight: bold; user-select: none;">
+					<option value="1">제목</option>
+					<option value="2">내용</option>
+					<option value="3">제목+내용</option>
+					<option value="4">작성자</option>
 				</select>
-				<input style="border-radius: 20px;height: 29px; width: 200px; border: 1px solid lightgray; outline:none; padding-left: 8px; box-sizing: border-box; margin-left: 10px; font-weight: bold" type="text" name="" placeholder="검색할 값을 입력하세요.">
-				<span style="height: 29px; width: 60px; background-color: orange; line-height: 29px; text-align: center; border-radius: 20px; color: white;margin-left: 10px;font-weight: bold;">검색</span>
+				<input id="search_board" style="border-radius: 20px;height: 29px; width: 200px; border: 1px solid lightgray; outline:none; padding-left: 8px; box-sizing: border-box; margin-left: 10px; font-weight: bold" type="text" name="" placeholder="검색할 값을 입력하세요.">
+				<span id="search_btn" style="height: 29px; width: 60px; background-color: orange; line-height: 29px; text-align: center; border-radius: 20px; color: white;margin-left: 10px;font-weight: bold; user-select: none; cursor: pointer;">검색</span>
 			</div>
 		</div>
 		<div class="page_num" style="text-align: center; margin-top: 10px">
 			<c:if test="${pageMaker.prev }">
-				<a href="${path }/boardList.ms?page=${pageMaker.criDto.page-5}">
+				<a onclick="movePage(${pageMaker.criDto.page-5})">
 					<span class="page_detail">&laquo;</span>
 				</a>
-				<a href="${path }/boardList.ms?page=1">
+				<a onclick="movePage(1)">
 					<span class="page_detail">1</span>
 				</a>
 				<a>
@@ -196,25 +192,67 @@
 				</a>
 			</c:if>
 			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-				<a class="" href="boardList.ms?page=${idx }&flag=${flag}&key=${code}"><span class="page_detail <c:out value="${pageMaker.criDto.page == idx ? 'active':'' }"/>">${idx}</span></a>
+				<a onclick="movePage(${idx})"><span class="page_detail <c:out value="${pageMaker.criDto.page == idx ? 'active':'' }"/>">${idx}</span></a>
 			</c:forEach>
 			<c:if test="${pageMaker.next }">
 				<a><span class="page_detail">...</span></a>
-				<a href="${path }/boardList.ms?page=${pageMaker.finalPage}">
+				<a onclick="movePage(${pageMaker.finalPage})">
 					<span class="page_detail">${pageMaker.finalPage}</span>
 				</a>
-				<a href="${path }/boardList.ms?page=${pageMaker.criDto.page+5}">
+				<a onclick="movePage(${pageMaker.criDto.page+5})">
 					<span class="page_detail">&raquo;</span>
 				</a>
 			</c:if>
 		</div>
 	</div>
 	<script type="text/javascript">
+		var page = '${pageMaker.criDto.page}';
+		var search_option = '${search_option}';
+		var keyword = '${keyword}';
+		var sort_type = '${sort_type}';
+
 		$(document).ready(function() {
+			if('${sort_type}'=='new'){
+				$('#board_sort a:nth-child(1)').css('background-color','#5D5D5D')
+												.css('color', 'white');
+			}else if('${sort_type}'=='good'){
+				$('#board_sort a:nth-child(2)').css('background-color','#5D5D5D')
+				.css('color', 'white');
+			}else if('${sort_type}'=='reply'){
+				$('#board_sort a:nth-child(3)').css('background-color','#5D5D5D')
+				.css('color', 'white');
+			}else if('${sort_type}'=='view'){
+				$('#board_sort a:nth-child(4)').css('background-color','#5D5D5D')
+				.css('color', 'white');
+			}
 			$('#board_insert').click(function(event) {
 				location.href = "../boardInsert.ms";
 			});
+			$('#search_btn').click(function(event) {
+				search_option = $('#selsearch').val();
+				keyword = $.trim($('#search_board').val());
+				
+				if(keyword == null || keyword.length == 0){
+					$('#search_board').focus();
+					$('search_board').css('border', '1px solid tomato');
+					return false;
+				}
+				moveURL();
+			});
+
+			$('#board_sort a').click(function(event) {
+				sort_type = $(this).attr('value');
+				moveURL();
+			});
+			
 		});
+		function movePage(iPage){
+			page = iPage;
+			moveURL();
+		}
+		function moveURL(){
+			location.href = "${path}/boardList.ms?page="+page+"&sort_type="+sort_type+"&keyword="+keyword+"&search_option="+search_option;
+		}
 	</script>
 </body>
 </html>

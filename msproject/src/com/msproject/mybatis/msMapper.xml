@@ -96,4 +96,32 @@
 		              )a
 		        )where rnum between #{pageStart} and #{perPageNum}
 	</select>
+	<select id="boardView" parameterType="String" resultType="com.msproject.dto.BoardDTO">
+		select * from tbl_board where bno = #{bno}
+	</select>
+	<update id="viewCnt" parameterType="String">
+		update tbl_board
+		set viewcnt = viewcnt+1
+		where bno = #{bno}
+	</update>
+	<select id="replyList" parameterType="String" resultType="com.msproject.dto.ReplyDTO">
+		select * from tbl_reply
+		where bno = #{bno}
+	</select>
+	
+	
+	<select id="goodCntInfo" parameterType="hashmap" resultType="String">
+		select good from tbl_good where bno = #{bno} and id = #{id}
+	</select>
+	
+	<update id="goodSwitch" parameterType="hashmap">
+		update tbl_good
+		set good = #{good}
+		where bno = #{bno} and id = #{id}
+	</update>
+	
+	<insert id="goodInsert" parameterType="hashmap">
+		insert into tbl_good(id, bno, good)
+		values (#{id},#{bno},#{good})
+	</insert>
 </mapper>

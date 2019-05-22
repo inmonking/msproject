@@ -10,6 +10,10 @@
 <style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Sunflower:300');
 	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Sunflower:300');
+	a{
+		font-weight: bold;
+		color: black;
+	}
 	.viewBody{
 		margin:0;
 		padding: 0;
@@ -143,7 +147,7 @@
 					<fmt:formatDate value="${bDto.regdate }" pattern="yyyy-MM-dd" var="regdate"/>
 					<tr>
 						<td>${bDto.bno }</td>
-						<td><span>${bDto.title }</span>
+						<td><a href="${path }/boardView.ms?bno=${bDto.bno}"><span>${bDto.title }</span></a>
 						<c:if test="${bDto.replycnt > 0 }">
 							<span class="board_reply_cnt">${bDto.replycnt }</span>
 						</c:if>

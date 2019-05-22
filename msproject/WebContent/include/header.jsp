@@ -3,13 +3,10 @@ pageEncoding="UTF-8"%>
 <%@ include file="common.jsp" %>
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
 	<link rel="stylesheet" href="${path}/css/common.css?v=1">
 	<link rel="stylesheet" href="${path}/css/header.css?v=1">
-	<title>Insert title here</title>
-</head>
 <body>
+<div class="headerbody">
 	<div id="modal_login" style="width: 100%; height: 100%; position: fixed; background-color: rgba(50,50,50,0.8); z-index: 1000; display: none; justify-content: center; align-items: center;">
 		<div style="width: 400px; height: 400px; background-color: white; border-radius: 10px; overflow: hidden; border: none;">
 			<div style="text-align: right;width: 385px"><span id="close" style="position: absolute; border-radius: 100px; width: 15px; text-align: center;font-weight: bold;font-size: 10px; color:white; cursor: pointer">X</span></div>
@@ -185,5 +182,6 @@ pageEncoding="UTF-8"%>
 			});
 		});
 	</script>
+</div>
 </body>
 </html>

@@ -17,11 +17,15 @@ input{
 	outline: none;
 }
 a{
-	text-decoration: none;
-	color: white;
+	text-decoration: none;	
 }
 a:hover{
 	text-decoration: none;
+}
+.headerbody a{
+	color: white;
+}
+.headerbody a:hover{
 	color: rgba(200,200,200);
 }
 #main_menu > li{

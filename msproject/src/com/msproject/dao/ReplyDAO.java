@@ -33,4 +33,26 @@ public class ReplyDAO {
 		}
 		return list;
 	}
+	public int replyAdd(ReplyDTO rDto2) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.insert("replyAdd", rDto2);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	public int replyRemove(ReplyDTO rDto2) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.delete("replyRemove", rDto2);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return result;
+	}
 }

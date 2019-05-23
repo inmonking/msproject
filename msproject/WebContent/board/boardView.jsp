@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title><style type="text/css">
+<title>Insert title here</title>
+<style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Sunflower:300');
 	.viewBody{
 		margin:0;
@@ -28,6 +29,7 @@
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
+	<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 	
 	<div class="viewBody" style="width: 850px;margin: 80px auto 0px; background-color: white; border: 1.5px solid black; border-radius: 10px; padding: 20px">
 		<div><h3 style="font-size: 35px; margin: 10px 0px 20px; font-weight: bold;">게시글 조회</h3></div>
@@ -44,7 +46,7 @@
 						<span style="font-size: 14px">${regdate}</span>
 						<span style="margin-top: -8px; text-align: right;">
 							<span>조회</span><span>${one.viewcnt }</span>
-							<span>추천</span><span>${one.goodcnt }</span>
+							<span>추천</span><span id="GoodCnt">${one.goodcnt }</span>
 						</span>
 					</span>
 					</div>
@@ -86,15 +88,61 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		goodInfo();
 		$(document).ready(function() {
 			comment_list();
+			goodInfo();
+			$(document).on('click', '#replyBtn', function(event) {
+				oEditors.getById["replyInsert"].exec("UPDATE_CONTENTS_FIELD",[]);
+				var content = $("#replyInsert").val();
+				if(content=="<p><br></p>"){
+					$(".se2_inputarea").focus();
+					return false;
+				}else{
+					
+					var bno = '${one.bno}';
+					$('#re_bno').val(bno);
+					
+					$.ajax({
+						type: "post",
+						url: "replyAdd.ms",
+						data: $("#frm_reply").serialize(), //직렬화
+						contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+						success: function(){
+							comment_list();
+							$("#replyInsert").val("");
+						},
+						error: function(){
+							alert("System error");
+						}
+					});
+				}
+			});
+			$(document).on('click', '#refresh', function(event) {
+				comment_list();
+				goodInfo();
+			});
 			$('#returnGo').click(function(){
 				location.href = "<%=referer%>";
 			});
 			$(".heart_ico").click(function(event) {
 				goodSwitch();
 				goodInfo();
+			});
+			
+			$(document).on('click', '.reply_del', function(event) {
+				var rno = $(this).attr("data_num");
+				var bno = '${one.bno}';
+				
+				$.ajax({
+					url: "replyRemove.ms",
+					data: "rno="+rno+"&bno="+bno,
+					success: function(result){
+						comment_list();
+					},
+					error: function(){
+						alert("System Error!");
+					}
+				});
 			});
 		});
 		function comment_list(){
@@ -110,15 +158,16 @@
 
 		function goodSwitch(){
 			$.ajax({
-				url: '${path}/boardGoodSwitch.ms',
+				url: '${path}/boardSwitch.ms',
 				type: 'post',
 				dataType: 'json',
+				async: false,
 				data: "bno=${one.bno}&id=${sessionScope.loginUser.id}",
 				success: function(data){
 				}
 			});
 		}
-
+		
 		function goodInfo(){
 			$.ajax({
 				url: '${path}/boardGood.ms',
@@ -126,19 +175,18 @@
 				dataType: 'json',
 				data: "bno=${one.bno}&id=${sessionScope.loginUser.id}",
 				success: function(data){
-					if(data.result == 1){
+					if(data.result == "1"){
 						$('.fullheart').css('display', 'block');
 						$('.emptyheart').css('display', 'none');
-					}else if(data.result == 2){
-						$('.emptyheart').css('display', 'block');
-						$('.fullheart').css('display', 'none');
 					}else{
 						$('.emptyheart').css('display', 'block');
 						$('.fullheart').css('display', 'none');
 					}
+					$('#GoodCnt').text(data.GoodCnt);
 				}
 			});
 		}
+		
 	</script>
 </body>
 </html>

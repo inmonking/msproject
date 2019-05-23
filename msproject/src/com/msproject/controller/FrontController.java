@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.msproject.action.Action;
 import com.msproject.action.ActionForward;
+import com.msproject.action.GoodAjaxAction;
+import com.msproject.action.GoodSwitchAjaxAction;
 import com.msproject.action.BoardInsertAction;
 import com.msproject.action.BoardListAction;
 import com.msproject.action.BoardViewAction;
@@ -29,8 +31,8 @@ import com.msproject.action.LogoutAction;
 import com.msproject.action.LogoutAjaxAction;
 import com.msproject.action.PwCheckAjaxAction;
 import com.msproject.action.PwUpdatePlayAction;
-import com.msproject.action.BoardGoodAjaxAction;
-import com.msproject.action.BoardGoodSwitchAjaxAction;
+import com.msproject.action.ReplyAddAction;
+import com.msproject.action.ReplyRemoveAction;
 
 /**
  * Servlet implementation class FrontController
@@ -115,10 +117,16 @@ public class FrontController extends HttpServlet {
 			action = new CommentListAction();
 			forward = action.execute(request, response);
 		}else if(command.equals("/boardGood.ms")) {
-			action = new BoardGoodAjaxAction();
+			action = new GoodAjaxAction();
 			forward = action.execute(request, response);
-		}else if(command.equals("/boardGoodSwitch.ms")) {
-			action = new BoardGoodSwitchAjaxAction();
+		}else if(command.equals("/boardSwitch.ms")) {
+			action = new GoodSwitchAjaxAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/replyAdd.ms")) {
+			action = new ReplyAddAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/replyRemove.ms")) {
+			action = new ReplyRemoveAction();
 			forward = action.execute(request, response);
 		}
 		

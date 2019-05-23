@@ -10,28 +10,35 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.msproject.dao.BoardDAO;
+import com.msproject.dao.GoodDAO;
+import com.msproject.dto.GoodDTO;
 
-public class BoardGoodAjaxAction implements Action {
+public class GoodAjaxAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String bno = request.getParameter("bno");
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		String id = request.getParameter("id");
-		System.out.println("bno = "+bno+" id = "+id);
-		
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		hMap.put("bno", bno);
-		hMap.put("id",id);
-		BoardDAO bDao = BoardDAO.getInstance();
-		String result = bDao.goodCntInfo(hMap);
-		System.out.println(hMap.toString());
-		if(result == null) {
-			result = "2";
-		}
 		
+		GoodDAO gDto = GoodDAO.getInstance();
+		GoodDTO result = gDto.getGood(new GoodDTO(id, bno));
+		int GoodCnt = gDto.GoodCnt(bno);
+		
+		
+		hMap.put("bno", bno+"");
+		hMap.put("cnt", GoodCnt+"");
+		
+		BoardDAO bDao = BoardDAO.getInstance();
+		int gResult = bDao.goodCnt(hMap);
 		JSONObject jObj = new JSONObject();
-		jObj.put("result", result);
+		if(result != null) {
+			jObj.put("result", "1");
+		}else {
+			jObj.put("result", "0");
+		}
+		jObj.put("GoodCnt", GoodCnt);
 		response.setContentType("application/x-json; charset=UTF-8");
 		response.getWriter().print(jObj);
 		

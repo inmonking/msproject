@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.msproject.dto.BoardDTO;
 import com.msproject.dto.CriteriaDTO;
+import com.msproject.dto.GoodDTO;
 import com.msproject.mybatis.SqlMapConfig;
 
 public class BoardDAO {
@@ -93,39 +94,40 @@ public class BoardDAO {
 			sqlSession.close();
 		}	
 	}
-	public String goodCntInfo(HashMap<String, String> hMap) {
-		// TODO Auto-generated method stub
+	public int goodCnt(HashMap<String, String> hMap) {
 		sqlSession = sqlSessionFactory.openSession(true);
-		String resultGood = "";
 		try {
-			System.out.println(hMap.toString());
-			resultGood = sqlSession.selectOne("goodCntInfo", hMap);
+			result = sqlSession.update("goodTotal", hMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			sqlSession.close();
 		}
-		return resultGood;
+		return result;
 	}
-	public void goodSwitch(HashMap<String, String> hMap) {
+	public int replyAdd(int bno) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
-			System.out.println(hMap.toString());
-			sqlSession.update("goodSwitch", hMap);
+			result = sqlSession.update("replyCntAdd", bno);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			sqlSession.close();
 		}
+		return result;
 	}
-	public void goodInsert(HashMap<String, String> hMap) {
+	
+	public int replyRemove(int bno) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
-			sqlSession.insert("goodInsert", hMap);
+			result = sqlSession.update("replyCntRemove", bno);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			sqlSession.close();
 		}
+		return result;
 	}
+	
+	
 }

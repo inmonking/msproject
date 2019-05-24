@@ -112,3 +112,39 @@ values (seq_reply.nextval, '댓글6', 'user3', 9);
 
 commit;
 select * from tbl_reply;
+
+drop SEQUENCE seq_reply;
+create SEQUENCE seq_reply
+start with 1
+INCREMENT by 1;
+
+drop table tbl_reply;
+create table tbl_reply(
+    rno number PRIMARY key,
+    content varchar2(2000) not null,
+    writer varchar2(30) not null,
+    regdate date default sysdate,
+    bno number not null
+);
+
+alter table tbl_reply
+add CONSTRAINT tbl_reply_fk_bno
+FOREIGN key(bno) REFERENCES tbl_board(bno);
+commit;
+
+delete from tbl_reply;
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글1', 'user1', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글2', 'user2', 9);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글3', 'user3', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글4', 'user1', 9);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글5', 'user2', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글6', 'user3', 9);
+
+commit;
+select * from tbl_reply;

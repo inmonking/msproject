@@ -1,5 +1,6 @@
 package com.msproject.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -53,10 +54,22 @@ public class GoodDAO {
 			sqlSession.close();
 		}
 	}
-	public int GoodCnt(int bno) {
+	public int goodCnt(int bno) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
 			result = sqlSession.selectOne("GoodCnt", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+
+	public int goodUpdate(HashMap<String, String> hMap) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.update("goodTotal", hMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

@@ -25,8 +25,8 @@ public class ReplyAddAction implements Action {
 		BoardDAO bDao = BoardDAO.getInstance();
 		int result = rDao.replyAdd(rDto);
 		if(result>0) {
+			result = bDao.replyUpdate(bno);
 			System.out.println("작성완료");
-			result = bDao.replyAdd(bno);
 		}else {
 			System.out.println("작성실패");
 		}

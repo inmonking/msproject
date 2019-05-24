@@ -94,10 +94,13 @@ public class BoardDAO {
 			sqlSession.close();
 		}	
 	}
-	public int goodCnt(HashMap<String, String> hMap) {
+	public int replyUpdate(int bno) {
 		sqlSession = sqlSessionFactory.openSession(true);
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("bno", bno+"");
+		hMap.put("cnt", ReplyDAO.getInstance().replyCnt(bno)+"");
 		try {
-			result = sqlSession.update("goodTotal", hMap);
+			result = sqlSession.update("replyCntUpdate", hMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -105,29 +108,17 @@ public class BoardDAO {
 		}
 		return result;
 	}
-	public int replyAdd(int bno) {
+	public int insertBoard(BoardDTO bDto2) {
+		// TODO Auto-generated method stub
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
-			result = sqlSession.update("replyCntAdd", bno);
+			result = sqlSession.update("insertBoard", bDto2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			sqlSession.close();
 		}
 		return result;
-	}
-	
-	public int replyRemove(int bno) {
-		sqlSession = sqlSessionFactory.openSession(true);
-		try {
-			result = sqlSession.update("replyCntRemove", bno);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			sqlSession.close();
-		}
-		return result;
-	}
-	
+	}	
 	
 }

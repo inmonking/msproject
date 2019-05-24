@@ -26,7 +26,7 @@ public class ReplyRemoveAction implements Action {
 		int result = rDao.replyRemove(rDto);
 		if(result>0) {
 			System.out.println("삭제완료");
-			result = bDao.replyRemove(bno);
+			result = bDao.replyUpdate(bno);
 		}else {
 			System.out.println("삭제실패");
 		}

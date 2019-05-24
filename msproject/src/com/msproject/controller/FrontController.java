@@ -24,6 +24,7 @@ import com.msproject.action.IdCheckAction;
 import com.msproject.action.IndexAction;
 import com.msproject.action.InfoUpdateAction;
 import com.msproject.action.InfoUpdatePlayAction;
+import com.msproject.action.InsertPlayAction;
 import com.msproject.action.JoinAction;
 import com.msproject.action.JoinPlayAction;
 import com.msproject.action.LoginAjaxAction;
@@ -31,6 +32,7 @@ import com.msproject.action.LogoutAction;
 import com.msproject.action.LogoutAjaxAction;
 import com.msproject.action.PwCheckAjaxAction;
 import com.msproject.action.PwUpdatePlayAction;
+import com.msproject.action.RegisterAjaxAction;
 import com.msproject.action.ReplyAddAction;
 import com.msproject.action.ReplyRemoveAction;
 
@@ -127,6 +129,12 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}else if(command.equals("/replyRemove.ms")) {
 			action = new ReplyRemoveAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/registerAjax.ms")) {
+			action = new RegisterAjaxAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/insertPlay.ms")) {
+			action = new InsertPlayAction();
 			forward = action.execute(request, response);
 		}
 		

@@ -144,14 +144,21 @@
 		set goodcnt = #{cnt}
 		where bno = #{bno}
 	</update>
-	<update id="replyCntAdd" parameterType="int">
+	<update id="replyCntUpdate" parameterType="hashmap">
 		update tbl_board
-		set replycnt = replycnt + 1
+		set replycnt = #{cnt}
 		where bno = #{bno}
 	</update>
-	<update id="replyCntRemove" parameterType="int">
-		update tbl_board
-		set replycnt = replycnt - 1
+	<select id="replyCnt" parameterType="int" resultType="int">
+		select count(*)
+		from tbl_reply
 		where bno = #{bno}
-	</update>
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.msproject.dto.BoardDTO">
+		insert into tbl_board(bno, title, content, writer)
+		values(seq_board.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	
+	
 </mapper>

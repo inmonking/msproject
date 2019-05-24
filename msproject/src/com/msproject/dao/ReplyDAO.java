@@ -55,4 +55,16 @@ public class ReplyDAO {
 		}
 		return result;
 	}
+	
+	public int replyCnt(int bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.selectOne("replyCnt", bno);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return result;
+	}
 }

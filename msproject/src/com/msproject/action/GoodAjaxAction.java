@@ -22,16 +22,15 @@ public class GoodAjaxAction implements Action {
 		String id = request.getParameter("id");
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		
-		GoodDAO gDto = GoodDAO.getInstance();
-		GoodDTO result = gDto.getGood(new GoodDTO(id, bno));
-		int GoodCnt = gDto.GoodCnt(bno);
+		GoodDAO gDao = GoodDAO.getInstance();
+		GoodDTO result = gDao.getGood(new GoodDTO(id, bno));
+		int GoodCnt = gDao.goodCnt(bno);
 		
 		
 		hMap.put("bno", bno+"");
 		hMap.put("cnt", GoodCnt+"");
 		
-		BoardDAO bDao = BoardDAO.getInstance();
-		int gResult = bDao.goodCnt(hMap);
+		int gResult = gDao.goodUpdate(hMap);
 		JSONObject jObj = new JSONObject();
 		if(result != null) {
 			jObj.put("result", "1");

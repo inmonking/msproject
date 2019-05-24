@@ -230,7 +230,20 @@
 				.css('color', 'white');
 			}
 			$('#board_insert').click(function(event) {
-				location.href = "../boardInsert.ms";
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "${path}/registerAjax.ms",
+					success: function(data){
+						if(data.message == "login"){
+							location.href = "${path}/boardInsert.ms";							
+						}else{
+							$("#modal_login").css("display","flex");
+							$('#err_check_msg').text('로그인이 필요한 서비스 입니다.')
+							.css('opacity', '1');
+						}
+					}
+				});
 			});
 			$('#search_btn').click(function(event) {
 				search_option = $('#selsearch').val();
@@ -248,6 +261,7 @@
 				sort_type = $(this).attr('value');
 				moveURL();
 			});
+			
 			
 		});
 		function movePage(iPage){

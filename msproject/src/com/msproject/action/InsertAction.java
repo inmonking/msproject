@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.msproject.dao.BoardDAO;
 import com.msproject.dto.BoardDTO;
 
-public class BoardInsertAction implements Action {
+public class InsertAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)

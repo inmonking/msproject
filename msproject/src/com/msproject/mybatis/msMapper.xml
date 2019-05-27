@@ -156,9 +156,12 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="com.msproject.dto.BoardDTO">
-		insert into tbl_board(bno, title, content, writer)
-		values(seq_board.nextval, #{title}, #{content}, #{writer})
+		insert into tbl_board(bno, title, content, writer, filename, filesize)
+		values(seq_board.nextval, #{title}, #{content}, #{writer}, #{filename}, #{filesize})
 	</insert>
 	
-	
+	<delete id="removeBoard" parameterType="String">
+		delete from tbl_board
+		where bno = #{bno}
+	</delete>
 </mapper>

@@ -27,7 +27,7 @@
 <body>
 	<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 	<div class="viewBody" style="width: 850px;height: ;margin: 80px auto 100px; background-color: white; border: 1.5px solid black; border-radius: 10px; padding: 20px">
-		<form action="insertPlay.ms" method="post" id="frm_body">
+		<form action="insertPlay.ms" id="frm_body" method="post" enctype="multipart/form-data">
 		<div><h3 style="font-size: 35px; margin: 10px 0px 20px; font-weight: bold;">게시글 작성</h3></div>
 		<div style="width: 800px; margin:0 auto; border-radius: 10px 10px 0px 0px; overflow: hidden;">
 			<div style="height: 40px; width: 100%; color: white; background-color:#747474; border-bottom: 1px solid lightgray">
@@ -51,7 +51,7 @@
 			</div>
 			<div style="width: 100%; height: 50px; border: 1px solid #747474; border-top: none; box-sizing: border-box; display: flex; align-items: center;">
 				<div style="width:50%; margin-left: 10px;">
-					<input id="uploadfile" type="file" name="" style="">
+					<input id="uploadfile" type="file" name="uploadfile" style="">
 					<input id="btn-file" type="button" value="파일선택">
 					<span id="file_name" style="display: inline-block">선택된 파일 없음</span>(<span id="now-file-size">0mb</span>)
 					<i class="fas fa-times" id="close_btn" style="display:none"></i>				

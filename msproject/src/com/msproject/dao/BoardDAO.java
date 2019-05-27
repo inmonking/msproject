@@ -119,6 +119,17 @@ public class BoardDAO {
 			sqlSession.close();
 		}
 		return result;
+	}
+	public void removeBoard(String bno) {
+		// TODO Auto-generated method stub
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			sqlSession.delete("removeBoard",bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
 	}	
 	
 }

@@ -13,11 +13,12 @@ import com.msproject.action.Action;
 import com.msproject.action.ActionForward;
 import com.msproject.action.GoodAjaxAction;
 import com.msproject.action.GoodSwitchAjaxAction;
-import com.msproject.action.BoardInsertAction;
+import com.msproject.action.InsertAction;
 import com.msproject.action.BoardListAction;
 import com.msproject.action.BoardViewAction;
 import com.msproject.action.CommentListAction;
 import com.msproject.action.ConstractAction;
+import com.msproject.action.DownloadAction;
 import com.msproject.action.DropMemberAction;
 import com.msproject.action.DropMemberPlayAction;
 import com.msproject.action.IdCheckAction;
@@ -35,6 +36,7 @@ import com.msproject.action.PwUpdatePlayAction;
 import com.msproject.action.RegisterAjaxAction;
 import com.msproject.action.ReplyAddAction;
 import com.msproject.action.ReplyRemoveAction;
+import com.msproject.action.RemovePlayAction;
 
 /**
  * Servlet implementation class FrontController
@@ -107,7 +109,7 @@ public class FrontController extends HttpServlet {
 			action = new DropMemberPlayAction();
 			forward = action.execute(request, response);
 		}else if(command.equals("/boardInsert.ms")) {
-			action = new BoardInsertAction();
+			action = new InsertAction();
 			forward = action.execute(request, response);
 		}else if(command.equals("/boardList.ms")) {
 			action = new BoardListAction();
@@ -135,6 +137,12 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}else if(command.equals("/insertPlay.ms")) {
 			action = new InsertPlayAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/download.ms")) {
+			action = new DownloadAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/delete.ms")) {
+			action = new RemovePlayAction();
 			forward = action.execute(request, response);
 		}
 		

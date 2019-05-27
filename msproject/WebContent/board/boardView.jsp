@@ -55,7 +55,8 @@
 					<div style="width: 100%; font-size: 12px; border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;margin: 10px 0; padding-bottom: 10px;">
 						첨부 파일
 						<ul style="font-size: 10px; margin: 5px 20px 0px;">
-							<li><a href="#">첨부파일이 있다면 여기에 뜰 것</a></li>
+						<fmt:formatNumber var="filesize" value="${one.filesize/(1024*1024)}" pattern="0.00"/>
+							<li><a href="download.ms?file=${one.filename}">${one.filename}/(${filesize}mb) </a></li>
 						</ul>
 					</div>
 					<div style="width: 100%; text-align: center; font-size: 20px;">
@@ -75,7 +76,7 @@
 				
 				<c:if test="${sessionScope.loginUser.id == one.writer}">
 					<span style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">수정</span>
-					<span style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">삭제</span>
+					<span id="deleteBtn" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">삭제</span>
 				</c:if>
 					<span style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">글쓰기</span>
 				</div>
@@ -127,6 +128,12 @@
 			$(".heart_ico").click(function(event) {
 				goodSwitch();
 				goodInfo();
+			});
+			$("#deleteBtn").click(function(){
+				var flag = confirm("정말 삭제하시겠습니까?");
+				if(flag){
+					location.href = "${path}/delete.ms?bno=${one.bno}&filename=${one.filename}";
+				}
 			});
 			
 			$(document).on('click', '.reply_del', function(event) {

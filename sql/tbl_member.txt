@@ -1,4 +1,4 @@
-drop sequence seq_member;
+﻿drop sequence seq_member;
 create sequence seq_member
 start with 1
 increment by 1
@@ -148,3 +148,13 @@ values (seq_reply.nextval, '댓글6', 'user3', 9);
 
 commit;
 select * from tbl_reply;
+
+alter table tbl_reply
+add CONSTRAINT tbl_reply_fk_bno
+FOREIGN key(bno) REFERENCES tbl_board(bno)
+on DELETE CASCADE;
+
+alter table tbl_good
+add CONSTRAINT tbl_good_fk_bno
+FOREIGN key(bno) REFERENCES tbl_board(bno)
+on delete CASCADE;

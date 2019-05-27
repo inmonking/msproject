@@ -166,7 +166,9 @@
 						</c:choose>
 						<td><i class="fas fa-heart"></i><span>${bDto.goodcnt }<span></td>
 						<td>${bDto.viewcnt }</td>
-						<td><i class="far fa-save"></i></td>
+						<td>
+							<c:if test="${bDto.filename != '-' && !empty bDto.filename}"><i class="far fa-save"></i></c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

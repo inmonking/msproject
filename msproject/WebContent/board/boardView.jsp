@@ -70,15 +70,15 @@
 			</div>
 			<div style="width: 100%; height: 50px; border: 1px solid #747474; border-top: none; box-sizing: border-box; display: flex; align-items: center;">
 				<div style="width:50%; margin-left: 10px;">
-					<span id="returnGo" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">목록으로</span>
+					<span id="returnGo" class="btnP" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">목록으로</span>
 				</div>
 				<div style="width:50%; margin-right: 10px; text-align: right;">
 				
 				<c:if test="${sessionScope.loginUser.id == one.writer}">
-					<span style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">수정</span>
-					<span id="deleteBtn" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">삭제</span>
+					<span class="btnP" id="updateBtn" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">수정</span>
+					<span class="btnP" id="deleteBtn" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">삭제</span>
 				</c:if>
-					<span style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">글쓰기</span>
+					<span id="board_insert" class="btnP" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">글쓰기</span>
 				</div>
 			</div>
 		</div>
@@ -118,6 +118,22 @@
 					});
 				}
 			});
+			$('#board_insert').click(function(event) {
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "${path}/registerAjax.ms",
+					success: function(data){
+						if(data.message == "login"){
+							location.href = "${path}/boardInsert.ms";							
+						}else{
+							$("#modal_login").css("display","flex");
+							$('#err_check_msg').text('로그인이 필요한 서비스 입니다.')
+							.css('opacity', '1');
+						}
+					}
+				});
+			});
 			$(document).on('click', '#refresh', function(event) {
 				comment_list();
 				goodInfo();
@@ -134,6 +150,9 @@
 				if(flag){
 					location.href = "${path}/delete.ms?bno=${one.bno}&filename=${one.filename}";
 				}
+			});
+			$("#updateBtn").click(function(){
+				location.href = "${path}/update.ms?bno=${one.bno}";
 			});
 			
 			$(document).on('click', '.reply_del', function(event) {

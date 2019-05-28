@@ -164,4 +164,14 @@
 		delete from tbl_board
 		where bno = #{bno}
 	</delete>
+	
+	<update id="updateBoard" parameterType="com.msproject.dto.BoardDTO">
+		update tbl_board
+		set title = #{title},
+			content = #{content},
+			filename = #{filename},
+			filesize = #{filesize}
+		where bno = #{bno}
+	</update>
+	
 </mapper>

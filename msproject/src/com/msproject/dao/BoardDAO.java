@@ -131,5 +131,14 @@ public class BoardDAO {
 			sqlSession.close();
 		}
 	}	
-	
+	public void updateBoard(BoardDTO bDto) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			sqlSession.delete("updateBoard",bDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+	}
 }

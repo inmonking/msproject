@@ -55,9 +55,16 @@
 					<div style="width: 100%; font-size: 12px; border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;margin: 10px 0; padding-bottom: 10px;">
 						첨부 파일
 						<ul style="font-size: 10px; margin: 5px 20px 0px;">
-						<fmt:formatNumber var="filesize" value="${one.filesize/(1024*1024)}" pattern="0.00"/>
-							<li><a href="download.ms?file=${one.filename}">${one.filename}/(${filesize}mb) </a></li>
-						</ul>
+						<c:choose>
+							<c:when test="${one.filesize > 0}">
+								<fmt:formatNumber var="filesize" value="${one.filesize/(1024*1024)}" pattern="0.00"/>
+									<li><a href="download.ms?file=${one.filename}">${one.filename}/(${filesize}mb) </a></li>
+								</ul>
+							</c:when>
+							<c:otherwise>
+								<li>첨부파일 없음</li>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div style="width: 100%; text-align: center; font-size: 20px;">
 					<c:if test="${!empty sessionScope.loginUser }">
@@ -89,6 +96,16 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	/* history.pushState(null,null,location.href);
+	window.onpopstate = function(){
+		history.go(1);
+	}; 뒤로가기 막기*/
+	history.pushState(null,document.title,location.href);
+	window.addEventListener('popstate',function(event){
+		history.pushState(null,document.title,'<%=referer%>');
+		location.reload();		
+	});
+	
 		$(document).ready(function() {
 			comment_list();
 			goodInfo();
@@ -212,7 +229,6 @@
 				}
 			});
 		}
-		
 	</script>
 </body>
 </html>

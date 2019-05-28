@@ -63,6 +63,7 @@
 		</form>
 	</div>
 	<script type="text/javascript">
+	
 		$(document).ready(function(){
 			$('#frm_btn').click(function(){
 				oEditors.getById["contentInsert"].exec("UPDATE_CONTENTS_FIELD",[]);

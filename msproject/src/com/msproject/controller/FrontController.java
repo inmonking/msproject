@@ -37,6 +37,7 @@ import com.msproject.action.RegisterAjaxAction;
 import com.msproject.action.ReplyAddAction;
 import com.msproject.action.ReplyRemoveAction;
 import com.msproject.action.UpdateAction;
+import com.msproject.action.UpdatePlayAction;
 import com.msproject.action.RemovePlayAction;
 
 /**
@@ -147,6 +148,9 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}else if(command.equals("/update.ms")) {
 			action = new UpdateAction();
+			forward = action.execute(request, response);
+		}else if(command.equals("/updatePlay.ms")) {
+			action = new UpdatePlayAction();
 			forward = action.execute(request, response);
 		}
 		

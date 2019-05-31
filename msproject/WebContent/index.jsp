@@ -18,11 +18,16 @@
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
-	<div style="position: fixed;width: 100px; height: 300px; border:1px solid black;">
-		<span>빼액</span>
-	</div>
 	<div style="width: 1300px; display: flex; margin: 0 auto">
-		<div style="width: 400px; border: 1px solid black; padding: 50px;"></div>
+		<div style="width: 400px; border: 1px solid #dadada; padding: 50px;">
+			<div>블로그</div>
+			<div>카페</div>
+			<div>코딩교육</div>
+			<div>대량요청</div>
+			<div>서류요청</div>
+			<div>후불결제</div>
+			<div>리셀러</div>
+		</div>
 		<div id="aboutme" class="inmon_carosel rightslide container-fluid">
 			<div class='carosel_content'>
 				<button class="carosel_leftbutton"><i class="fas fa-chevron-left"></i></button>
@@ -48,8 +53,24 @@
 			</ul>
 		</div>
 	</div>
-	<div style="width: 1300px; margin: 0 auto">
-		<img src="image/popular.png" style="margin: 20px;">
+	
+	
+	<div style="width: 1300px; margin: 0 auto; margin-top: 100px;">
+	<div>
+		<img src="image/mechanews.png" style="margin: 20px;">
+		<img src="image/edu_pdf.png" style="margin: 20px; margin-left: 400px;">
+	</div>
+		<div style="display: flex">
+			<img src="image/news_01.png" style="border: 1px solid #dadada;">
+			<span style="width:350px; height: 300px; border: 1px solid #dadada; margin-left: 50px;">
+				<img src="image/book_img_playLora.png" style="margin: 50px auto;">
+			</span>
+		</div>
+	</div>
+	<div style="width: 1300px; margin: 0 auto; margin-top: 100px;">
+		
+			<img src="image/popular.png" style="margin: 20px;">
+		
 		<div style="display: flex;">
 			<div style="border: 1px solid black; width: 300px;"></div>
 			<div style="border: 1px solid black; width: 1000px;">
@@ -57,18 +78,24 @@
 					<tr>
 						<%for(int i = 0; i<4; i++){%>
 							<td style="width:250px; height: 80%; text-align: center;">
-							<img src="image/<%=list.get(i).getP_img() %>" style="width: 150px">
-							<div><%=list.get(i).getP_name() %></div>
-							<div><%=list.get(i).getP_price() %>원</div>
+								<div style="box-shadow: 2px 2px 2px rgba(0,0,0,0.1);">
+									<img src="image/<%=list.get(i).getP_img() %>" style="width: 150px">
+									<hr>
+									<div><%=list.get(i).getP_name() %></div>
+									<div><%=list.get(i).getP_price() %>원</div>
+									<hr>
+								</div>
 							</td>
 						<%} %>
 					</tr>
 					<tr>
 						<%for(int i = 4; i<8; i++){%>
 							<td style="width:250px; height: 80%; text-align: center;">
-							<img src="image/<%=list.get(i).getP_img() %>" style="width: 150px">
-							<div><%=list.get(i).getP_name() %></div>
-							<div><%=list.get(i).getP_price() %>원</div>
+								<div style="box-shadow: 2px 2px 2px rgba(0,0,0,0.1);">
+									<img src="image/<%=list.get(i).getP_img() %>" style="width: 150px">
+									<div><%=list.get(i).getP_name() %></div>
+									<div><%=list.get(i).getP_price() %>원</div>
+								</div>
 							</td>
 						<%} %>
 					</tr>
@@ -76,7 +103,7 @@
 			</div>
 		</div>
 	</div>
-		<div style="width: 1300px; margin: 0 auto">
+		<div style="width: 1300px; margin: 0 auto; margin-top: 100px;">
 		<img src="image/newproduct.png" style="margin: 20px;">
 		<div style="display: flex;">
 			<div style="border: 1px solid black; width: 300px;"></div>

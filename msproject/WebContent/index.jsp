@@ -17,9 +17,11 @@
 </style>
 </head>
 <body>
-	
 	<%@ include file="../include/header.jsp" %>
-	<div style="width: 1500px; display: flex; margin: 0 auto">
+	<div style="position: fixed;width: 100px; height: 300px; border:1px solid black;">
+		<span>빼액</span>
+	</div>
+	<div style="width: 1300px; display: flex; margin: 0 auto">
 		<div style="width: 400px; border: 1px solid black; padding: 50px;"></div>
 		<div id="aboutme" class="inmon_carosel rightslide container-fluid">
 			<div class='carosel_content'>
@@ -46,11 +48,11 @@
 			</ul>
 		</div>
 	</div>
-	<div style="width: 1500px; margin: 0 auto">
-		<img src="image/popular.png">
+	<div style="width: 1300px; margin: 0 auto">
+		<img src="image/popular.png" style="margin: 20px;">
 		<div style="display: flex;">
-			<div style="border: 1px solid black; width: 500px; height: 550px"></div>
-			<div style="border: 1px solid black; width: 1000px; height: 550px">
+			<div style="border: 1px solid black; width: 300px;"></div>
+			<div style="border: 1px solid black; width: 1000px;">
 				<table>
 					<tr>
 						<%for(int i = 0; i<4; i++){%>
@@ -74,11 +76,11 @@
 			</div>
 		</div>
 	</div>
-		<div style="width: 1500px; margin: 0 auto">
-		<img src="image/newproduct.png">
+		<div style="width: 1300px; margin: 0 auto">
+		<img src="image/newproduct.png" style="margin: 20px;">
 		<div style="display: flex;">
-			<div style="border: 1px solid black; width: 500px; height: 550px"></div>
-			<div style="border: 1px solid black; width: 1000px; height: 550px">
+			<div style="border: 1px solid black; width: 300px;"></div>
+			<div style="border: 1px solid black; width: 1000px;">
 				<table>
 					<tr>
 						<%for(int i = 0; i<4; i++){%>
@@ -102,6 +104,17 @@
 			</div>
 		</div>
 	</div>
+	<div style="position: relative;width: 1300px; height: 200px; border: 1px solid black; margin: 0 auto;">
+		<span style="position: absolute; left: 25px;line-height: 200px;"><i style="font-size: 20px" class="fas fa-chevron-left"></i></span>
+		<span style="position: absolute; right: 25px;line-height: 200px;"><i style="font-size: 20px" class="fas fa-chevron-right"></i></span>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<%@ include file="../include/footer.jsp" %>
 <script type="text/javascript" src="js/inmoncarocel.js"></script>
 </body>
 </html>
